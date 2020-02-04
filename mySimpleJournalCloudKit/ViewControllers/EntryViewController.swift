@@ -77,7 +77,7 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
         
         guard let entryText = entryBodyTextField.text, !entryText.isEmpty else { return }
         
-        createEntryWith(title: entryTitle, bodyText: entryText, for: journal)
+        //createEntryWith(title: entryTitle, bodyText: entryText, for: journal)
         
         entryTitleTextField.text = ""
         entryTitleTextField.endEditing(true)
@@ -105,9 +105,9 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
         
         guard let entryText = entryBodyTextField.text, !entryText.isEmpty else { return }
         
-        let editedEntry = EntryController.updateEntry(entry: entry, title: entryTitle, text: entryText)
-        
-        updateEntryWith(editedEntry: editedEntry, byReplacing: entry, in: journal)
+//        let editedEntry = EntryController.updateEntry(entry: entry, title: entryTitle, text: entryText)
+//
+//        updateEntryWith(editedEntry: editedEntry, byReplacing: entry, in: journal)
         
         entryTitleTextField.text = ""
         entryTitleTextField.endEditing(true)
@@ -117,14 +117,14 @@ class EntryViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.popViewController(animated: true)
     }
 
-    private func createEntryWith(title: String, bodyText: String, for journal: Journal) {
-        let newEntry = EntryController.createEntry(title: title, text: bodyText)
-        JournalController.sharedGlobalInstance.addNewEntry(entry: newEntry, toJournal: journal)
-    }
-    
-    private func updateEntryWith(editedEntry: Entry, byReplacing oldEntry: Entry, in journal: Journal) {
-        JournalController.sharedGlobalInstance.updateEntry(updatedEntry: editedEntry, oldEntry: oldEntry, inJournal: journal)
-    }
+//    private func createEntryWith(title: String, bodyText: String, for journal: Journal) {
+//        let newEntry = EntryController.createEntry(title: title, text: bodyText)
+//        JournalController.sharedGlobalInstance.addNewEntry(entry: newEntry, toJournal: journal)
+//    }
+//
+//    private func updateEntryWith(editedEntry: Entry, byReplacing oldEntry: Entry, in journal: Journal) {
+//        JournalController.sharedGlobalInstance.updateEntry(updatedEntry: editedEntry, oldEntry: oldEntry, inJournal: journal)
+//    }
 }
 
 
