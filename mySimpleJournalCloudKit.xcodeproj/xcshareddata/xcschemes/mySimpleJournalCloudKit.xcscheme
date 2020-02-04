@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0F46C06523C68B370090F02D"
-               BuildableName = "mySimpleJournal.app"
+               BuildableName = "mySimpleJournalCloudKit.app"
                BlueprintName = "mySimpleJournal"
-               ReferencedContainer = "container:mySimpleJournal.xcodeproj">
+               ReferencedContainer = "container:mySimpleJournalCloudKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0F46C06523C68B370090F02D"
-            BuildableName = "mySimpleJournal.app"
+            BuildableName = "mySimpleJournalCloudKit.app"
             BlueprintName = "mySimpleJournal"
-            ReferencedContainer = "container:mySimpleJournal.xcodeproj">
+            ReferencedContainer = "container:mySimpleJournalCloudKit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0F46C06523C68B370090F02D"
-            BuildableName = "mySimpleJournal.app"
+            BuildableName = "mySimpleJournalCloudKit.app"
             BlueprintName = "mySimpleJournal"
-            ReferencedContainer = "container:mySimpleJournal.xcodeproj">
+            ReferencedContainer = "container:mySimpleJournalCloudKit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

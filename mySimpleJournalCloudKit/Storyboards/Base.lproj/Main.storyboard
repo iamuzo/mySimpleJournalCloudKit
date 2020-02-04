@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BRI-GV-dfX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BRI-GV-dfX">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,7 +10,7 @@
         <!--Journals Table View Controller-->
         <scene sceneID="GEJ-Gw-pop">
             <objects>
-                <tableViewController id="CeZ-2M-xbZ" customClass="JournalsTableViewController" customModule="mySimpleJournal" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="CeZ-2M-xbZ" customClass="JournalsTableViewController" customModule="mySimpleJournalCloudKit" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gks-6o-R1z">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -84,7 +84,7 @@
         <!--Journal Detail Table View Controller-->
         <scene sceneID="Jee-f8-4WX">
             <objects>
-                <tableViewController id="KLN-SK-had" customClass="JournalDetailTableViewController" customModule="mySimpleJournal" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="KLN-SK-had" customClass="JournalDetailTableViewController" customModule="mySimpleJournalCloudKit" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="wEA-JM-6Yw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -138,7 +138,7 @@
         <!--Entry View Controller-->
         <scene sceneID="MM8-7s-KnW">
             <objects>
-                <viewController id="7u1-yK-cLv" customClass="EntryViewController" customModule="mySimpleJournal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7u1-yK-cLv" customClass="EntryViewController" customModule="mySimpleJournalCloudKit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t0z-uR-FG4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

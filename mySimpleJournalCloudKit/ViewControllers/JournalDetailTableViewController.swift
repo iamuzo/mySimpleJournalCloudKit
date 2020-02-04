@@ -29,17 +29,18 @@ class JournalDetailTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let journal = journal else { return 0 }
-        return journal.entries.count
+        //guard let journal = journal else { return 0 }
+        //return journal.entries.count
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "entryCell", for: indexPath)
         guard let journal = journal else { return UITableViewCell() }
         
-        let entry = journal.entries[indexPath.row]
-        cell.textLabel?.text = entry.title
-        cell.detailTextLabel?.text = String("\(entry.timeStamp)")
+//        let entry = journal.entries[indexPath.row]
+//        cell.textLabel?.text = entry.title
+//        cell.detailTextLabel?.text = String("\(entry.timeStamp)")
         return cell
     }
     
@@ -48,12 +49,12 @@ class JournalDetailTableViewController: UITableViewController {
         if editingStyle == .delete {
             guard let journal = journal else { return }
             
-            let entry = journal.entries[indexPath.row]
-            
-            JournalController.sharedGlobalInstance.deleteEntry(entry: entry, fromjournal: journal)
-            
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+//            let entry = journal.entries[indexPath.row]
+//
+//            JournalController.sharedGlobalInstance.deleteEntry(entry: entry, fromjournal: journal)
+//
+//            // Delete the row from the data source
+//            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 
@@ -70,9 +71,9 @@ class JournalDetailTableViewController: UITableViewController {
             guard let indexPath = tableView.indexPathForSelectedRow,
                 let destinationVC = segue.destination as? EntryViewController else { return }
             
-            let entry = journal.entries[indexPath.row]
+            //let entry = journal.entries[indexPath.row]
             destinationVC.journal = journal
-            destinationVC.entry = entry
+            //destinationVC.entry = entry
         }
     }
     
