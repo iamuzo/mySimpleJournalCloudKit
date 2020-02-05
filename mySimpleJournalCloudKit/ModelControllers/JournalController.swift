@@ -10,27 +10,72 @@ import Foundation
 import CloudKit
 
 class JournalController {
-
-    //MARK:- Singletons
-    static let sharedGlobalInstance = JournalController()
     
     //MARK:- Properties
     var journals: [Journal] = []
     let privateDB = CKContainer.default().privateCloudDatabase
+
+    //MARK:- Singletons
+    static let sharedGlobalInstance = JournalController()
     
     //MARK:- CRUD Functions
-    func createNewJournal(name: String, completion: @escaping (Bool) -> Void) {
-        let journal = Journal(name: name)
-        let journalRecord = CKRecord(journal: journal)
+    func createJournalInstance(with name: String,
+                               entry: String,
+                               completion: @escaping(Result<Journal?, JournalError>) -> Void)
+    {
+        let journalInstance = Journal(name: name, entry: entry)
         
-        privateDB.save(journalRecord) { (record, error) in
-            if let error = error {
-                print("Error saving to database:", error.localizedDescription)
-                return completion(false)
+        let journalRecord = CKRecord(journal: journalInstance)
+        
+        privateDB.save(journalRecord) { (ckRecordOptionsal, errorOptional) in
+            
+            //handle error if error
+            if let error = errorOptional {
+                print("Error in \(#function) : \(error.localizedDescription) \n---\n \(error)")
+                completion(.failure(.ckError(error)))
+                return
             }
             
-            self.journals.append(journal)
-            return completion(true)
+            //save record if no error
+            guard let record = ckRecordOptionsal,
+                let savedJournalRecord = Journal(ckRecord: record)
+                else {
+                    completion(.failure(.unableToUnWrapCKRecordObject))
+                    return
+            }
+            
+            self.journals.insert(savedJournalRecord, at: 0)
+            completion(.success(savedJournalRecord))
+            return
+        }
+    }
+    
+    func fetchJournals(completion: @escaping (Result<[Journal], JournalError>) -> Void) {
+        let queryAllPredicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: JournalKeys.recordtypeKey, predicate: queryAllPredicate)
+        
+        //Configure Query
+        query.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        
+        privateDB.perform(query, inZoneWith: nil) { (records, error) in
+            
+            if let error = error {
+                print("Error fetching journals:", error.localizedDescription)
+                completion(.failure(.ckError(error)))
+                return;
+            }
+            
+            guard let records = records
+                else {
+                    completion(.failure(.unableToUnWrapCKRecordObject))
+                    return;
+            }
+            
+            let journals = records.compactMap({ journal in
+                Journal(ckRecord: journal)
+            })
+            self.journals = journals
+            return completion(.success(self.journals))
         }
     }
     
@@ -53,26 +98,5 @@ class JournalController {
             return completion(true)
         }
     
-    }
-    
-    func fetchJournals(completion: @escaping (Bool) -> Void) {
-        let predicate = NSPredicate(value: true)
-        let query = CKQuery(recordType: JournalKeys.RecordTypeKey, predicate: predicate)
-        
-        //Configure Query
-        query.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-        
-        privateDB.perform(query, inZoneWith: nil) { (records, error) in
-            if let error = error {
-                print("Error fetching journals:", error.localizedDescription)
-                return completion(false)
-            }
-            guard let records = records else {return completion(false)}
-            let journals = records.compactMap({ journal in
-                Journal(ckRecord: journal)
-            })
-            self.journals = journals
-            return completion(true)
-        }
     }
 }

@@ -9,88 +9,56 @@
 import Foundation
 import CloudKit
 
-class Journal: Codable {
+enum JournalKeys {
+    static let recordtypeKey = "Journal"
+    fileprivate static let nameKey = "name"
+    fileprivate static let entryKey = "entry"
+    fileprivate static let timestampkey = "timestamp"
+}
+
+class Journal {
     
     var name: String
+    var entry: String
+    var timestamp: Date
+    var recordID: CKRecord.ID
     
-    init(name: String) {
+    init(name: String,
+         entry: String,
+         timestamp: Date = Date(),
+         recordID: CKRecord.ID = CKRecord.ID(recordName: UUID().uuidString))
+    {
         self.name = name
-    }
-}
-
-extension Journal: Equatable {
-    static func == (lhs: Journal, rhs: Journal) -> Bool {
-        return(
-            lhs.name == rhs.name
-        )
-    }
-}
-
-extension CKRecord {
-    convenience init(journal: Journal) {
-        self.init(recordType: JournalKeys.RecordTypeKey)
-        setValue(journal.name, forKey: JournalKeys.NameKey)
+        self.entry = entry
+        self.timestamp = timestamp
+        self.recordID = recordID
     }
 }
 
 extension Journal {
     convenience init?(ckRecord: CKRecord) {
-        guard let name = ckRecord[JournalKeys.NameKey] as? String
+        guard let name = ckRecord[JournalKeys.nameKey] as? String,
+            let entry = ckRecord[JournalKeys.entryKey] as? String,
+            let timestamp = ckRecord[JournalKeys.timestampkey] as? Date
         else { return nil }
-        self.init(name: name)
+        
+        self.init(name: name, entry: entry, timestamp: timestamp, recordID: ckRecord.recordID)
     }
 }
 
-enum JournalKeys {
-    static let RecordTypeKey = "Journal"
-    fileprivate static let NameKey = "name"
+extension Journal: Equatable {
+    static func == (lhs: Journal, rhs: Journal) -> Bool {
+        return(lhs === rhs)
+    }
 }
 
-
-
-
-
-//import Foundation
-//import CloudKit
-//
-//class Journal: Codable {
-//
-//    var name: String
-//    var entries: [Entry]
-//
-//    init(name: String, entries: [Entry] = [] ) {
-//        self.name = name
-//        self.entries = entries
-//    }
-//}
-//
-//extension Journal: Equatable {
-//    static func == (lhs: Journal, rhs: Journal) -> Bool {
-//        return(
-//            lhs.name == rhs.name && lhs.entries == rhs.entries
-//        )
-//    }
-//}
-//
-//extension CKRecord {
-//    convenience init(journal: Journal) {
-//        self.init(recordType: JournalKeys.RecordTypeKey)
-//        setValue(journal.name, forKey: JournalKeys.NameKey)
-//        setValue(journal.entries, forKey: JournalKeys.EntriesKey)
-//    }
-//}
-//
-//extension Journal {
-//    convenience init?(ckRecord: CKRecord) {
-//        guard let name = ckRecord[JournalKeys.NameKey] as? String,
-//            let entries = ckRecord[JournalKeys.EntriesKey] as? Array<Any>
-//        else { return nil }
-//        self.init(name: name, entries: entries as! [Entry])
-//    }
-//}
-//
-//enum JournalKeys {
-//    static let RecordTypeKey = "Journal"
-//    fileprivate static let NameKey = "name"
-//    fileprivate static let EntriesKey = "entries"
-//}
+extension CKRecord {
+    convenience init(journal: Journal) {
+        self.init(recordType: JournalKeys.recordtypeKey, recordID: journal.recordID)
+        self.setValuesForKeys([
+            JournalKeys.nameKey : journal.name,
+            JournalKeys.entryKey : journal.entry,
+            JournalKeys.timestampkey : journal.timestamp
+        ])
+    }
+}
