@@ -23,6 +23,12 @@ class JournalEntriesListViewController: UIViewController {
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        journalEntriesListTableView.reloadData()
+        
+    }
+    
     // MARK: - Custome Methods
     func configureTableView() {
         title = "Your Journal Entries"

@@ -45,8 +45,8 @@ class JournalController {
             }
             
             self.journals.insert(savedJournalRecord, at: 0)
-            completion(.success(savedJournalRecord))
-            return
+            
+            return completion(.success(savedJournalRecord))
         }
     }
     
